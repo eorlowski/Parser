@@ -4,4 +4,4 @@ Compile with for example:
 g++ -o parser.exe Parser.cpp
 
 Description
-Parses simple expressions, no whitespace, currently only supported operators: + and *.
+Parses simple expressions, no whitespace, currently only supported operators: +, *, / and -.
