@@ -52,7 +52,8 @@ class Parser {
 				}
 				cout << "\n\tFound digit... ";
 			}
-			else if (s[i] == '+' || s[i] == '*') {
+			//TODO: Use a search in operatormap function
+			else if (s[i] == '+' || s[i] == '*' || s[i] == '/' || s[i] == '-') {
 				if (readingNumber) {
 					readingNumber = false;
 					cout << "\nClosing number read with: " << elem; 
@@ -178,6 +179,12 @@ class Parser {
 		}
 		else if (Operator == "*") {
 			result = term1Int*term2Int;
+		}
+		else if (Operator == "/") {
+			result = term1Int/term2Int;
+		}
+		else if (Operator == "-") {
+			result = term1Int-term2Int;
 		}
 		cout << "term1: " << term1Int << ", term2: " << term2Int << endl;
 		return result;
