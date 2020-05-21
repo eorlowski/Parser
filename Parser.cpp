@@ -31,18 +31,36 @@ class Operators {
 
 class Parser {
 	Operators ops;
-	list<Element> elemList;
 	public:
-	void parse(string s) {
-		cout << "Length of string: " << s.length() << endl;
+	long parse(string s, int recursionLevel, int* stringPos) {
+		list<Element> elemList;
+		cout << "Length of string: " << s.length() << ", recursion level: " << recursionLevel << endl;
 		bool readingNumber = false;
 		string elem;
 		Element element;
 		int i;
 		long int result;
+		int relStringPos;
 		for (i = 0; i < s.length(); i++) {
-			cout << "Found character: " << s[i];
-			if (s[i] >= '0' && s[i] <= '9') {
+			cout << "Found character: " << s[i] << endl;
+			if (s[i] == '(') {
+				cout << "Entering next level of recursion..." << endl;
+				long subResult = parse(s.substr(i+1), ++recursionLevel, &relStringPos);
+				// Add element and jump to corresponding closing bracket
+				element.type = OperandType;
+				element.content = to_string(subResult);
+				elemList.push_back(element);
+				i += relStringPos + 1;
+			}
+			else if (s[i] == ')') {
+				if (recursionLevel < 1) {
+					cout << "Syntax error: ')' without corresponding '('" << endl;
+					exit(1);
+				}
+				*stringPos = i;
+				break; // exit loop
+			}
+			else if (s[i] >= '0' && s[i] <= '9') {
 				if (!readingNumber) {
 					readingNumber = true;
 					elem = s[i];
@@ -83,7 +101,9 @@ class Parser {
 			cout << endl;
 		}
 		if (readingNumber) {
-			elem += s[i];
+			if (recursionLevel == 0) {
+				elem += s[i];
+			}
 			cout << "\nClosing number at end of file: " << elem;
 			element.type = OperandType;
 			element.content = elem;
@@ -93,6 +113,8 @@ class Parser {
 		printList(elemList);
 		result = evaluateParsedStatement(elemList); 
 		cout << "\nResult is: " << result << endl;
+
+		return result;
 	}
 
 	void printList(list<Element> elemList) {
@@ -215,7 +237,10 @@ int main(int argc, char** argv) {
 		s = " 2 *5+3*4+9*8*7";
 	}
 
-	parser.parse(s);
+	// let 0 be the default for recursionLevel
+	long int result = parser.parse(s, 0, NULL);
+
+	cout << "Result of parser is: " << result << endl;
 
 	return 0;
 }
