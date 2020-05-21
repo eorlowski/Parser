@@ -66,6 +66,15 @@ class Parser {
 				element.content = s[i];
 				elemList.push_back(element);
 			}
+			else if (s[i] == ' ') {
+				if (readingNumber) {
+					readingNumber = false;
+					cout << "\nClosing number read after whitespace with: " << elem; 
+					element.type = OperandType;
+					element.content = elem;
+					elemList.push_back(element);
+				}
+			}
 			else {
 				cout << "\nSyntax error!";
 				exit(1);
@@ -196,11 +205,14 @@ int main(int argc, char** argv) {
 	Parser parser;
 	string s;
 	if (argc > 1) {
-		cout << "Going to calculate: " << argv[1] << endl;
-		s = argv[1];
+		for (int i = 1; i < argc; i++) {
+			s += argv[i];
+		}
+		cout << "Going to calculate: " << s << endl;
+//		s = argv[1];
 	}
 	else {
-		s = "2*5+3*4+9*8*7";
+		s = " 2 *5+3*4+9*8*7";
 	}
 
 	parser.parse(s);
