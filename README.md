@@ -2,7 +2,7 @@
 
 C++ Compile with for example: g++ -o parser.exe Parser.cpp
 
-Description
+Description  
 Parses simple expressions, no whitespace, currently only supported operators: +, *, / and -.
 
 Brackets supported too now! Escape with \ when on command line.
