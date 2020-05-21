@@ -1,6 +1,9 @@
-Ed's parser C++ Compile with for example: g++ -o parser.exe Parser.cpp
+# Ed's parser
 
-Description Parses simple expressions, no whitespace, currently only supported operators: +, *, / and -.
+C++ Compile with for example: g++ -o parser.exe Parser.cpp
+
+Description
+Parses simple expressions, no whitespace, currently only supported operators: +, *, / and -.
 
 Brackets supported too now! Escape with \ when on command line.
 
