@@ -234,7 +234,8 @@ int main(int argc, char** argv) {
 //		s = argv[1];
 	}
 	else {
-		s = " 2 *5+3*4+9*8*7";
+//		s = " 2 *5+3*4+9*8*7";
+		getline(cin, s);
 	}
 
 	// let 0 be the default for recursionLevel
