@@ -8,4 +8,7 @@ Parses simple expressions, no whitespace, currently only supported operators: +,
 Brackets supported too now! Escape with \ when on Unix command line.
 
 When using Unix command line, escape * with \ if it is preceded with whitespace.
+
 On windows command line, * cannot be preceded by whitespace.
+
+Read from stdin: try echo "2 + 4 * (3 + 2)" | ./parser.exe
