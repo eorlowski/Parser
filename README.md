@@ -22,6 +22,6 @@ For building: go to src folder and execute make
 
 For building unit tests: go to test folder and execute make
 
-Run the test with ./testparser.exe or "make test"
+Run the test with ./testparser.exe or "make test" in the rootfolder.
 
 You can use catch options like '-s'.
