@@ -19,5 +19,7 @@ Added unit testing and makefiles
 For building: go to src folder and execute make
 
 For building unit tests: go to test folder and execute make
+
 Run the test with ./testparser.exe
+
 You can use catch options like '-s'.
