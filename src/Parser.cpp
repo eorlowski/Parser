@@ -119,7 +119,8 @@ long Parser::parse(string s, int recursionLevel, int* stringPos) {
 //		cout << "\nNumber of elements in list: " << elemList.size() << endl;
 		printList(elemList);
 		result = evaluateParsedStatement(elemList); 
-		cout << "Result is: " << result << endl;
+		log.debug("Result is: %", (int) result);
+//		cout << "Result is: " << result << endl;
 
 		return result;
 	}
