@@ -27,3 +27,9 @@ For building unit tests: go to test folder and execute make
 Run the test with ./testparser.exe or "make test" in the rootfolder.
 
 You can use catch options like '-s'.
+
+
+Known bugs
+----------
+Expression of (3+4) is not handled correctly.
+
