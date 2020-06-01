@@ -15,6 +15,8 @@ On windows command line, * cannot be preceded by whitespace.
 
 Read from stdin: try echo "2 + 4 * (3 + 2)" | ./parser.exe
 
+Added debug option: -d (if first argument, displays verbose debug information).
+
 Added unit testing and makefiles
 --------------------------------
 

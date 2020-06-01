@@ -1,6 +1,7 @@
 #include <map>
 #include <string>
 #include <list>
+#include "logger.h"
 
 enum ElemType { OperandType, OperatorType};
 
@@ -18,6 +19,7 @@ class Operators {
 };
 
 class Parser {
+	logger log;
 	Operators ops;
 	private:
 		long evaluateParsedStatement(std::list<Element>);

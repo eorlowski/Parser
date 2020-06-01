@@ -1,5 +1,4 @@
 CXX=g++
-#src=$(wildcard *.cpp)
 src=$(wildcard *.cpp)
 obj=$(src:.cpp=.o)
 

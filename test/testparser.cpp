@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN 
 #include "catch.hpp"
-#include "../src/parser.cpp"
+#include "../src/parser.h"
 
 TEST_CASE("Testing parser") {
 	Parser parser;

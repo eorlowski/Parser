@@ -36,7 +36,7 @@ int Operators::getPriority(char symbol) {
 //	public:
 long Parser::parse(string s, int recursionLevel, int* stringPos) {
 		list<Element> elemList;
-		cout << "Length of string: " << s.length() << ", recursion level: " << recursionLevel << endl;
+		log.debug ("Length of string: " + to_string(s.length()) + ", recursion level: " + to_string(recursionLevel) );
 		bool readingNumber = false;
 		string elem;
 		Element element;
@@ -44,9 +44,10 @@ long Parser::parse(string s, int recursionLevel, int* stringPos) {
 		long int result;
 		int relStringPos;
 		for (i = 0; i < s.length(); i++) {
-			cout << "Found character: " << s[i] << endl;
+			log.debug("Found character: %", s[i]);
+//			cout << "Found character: " << s[i] << endl;
 			if (s[i] == '(') {
-				cout << "Entering next level of recursion..." << endl;
+				log.debug("Entering next level of recursion...");
 				long subResult = parse(s.substr(i+1), ++recursionLevel, &relStringPos);
 				// Add element and jump to corresponding closing bracket
 				element.type = OperandType;
@@ -70,18 +71,20 @@ long Parser::parse(string s, int recursionLevel, int* stringPos) {
 				else {
 					elem += s[i];
 				}
-				cout << "\n\tFound digit... ";
+				log.debug("\t\tFound digit... ");
 			}
 			//TODO: Use a search in operatormap function
 			else if (s[i] == '+' || s[i] == '*' || s[i] == '/' || s[i] == '-') {
 				if (readingNumber) {
 					readingNumber = false;
-					cout << "\nClosing number read with: " << elem; 
+					log.debug("Closing number read with: %", elem); 
+//					cout << "\nClosing number read with: " << elem; 
 					element.type = OperandType;
 					element.content = elem;
 					elemList.push_back(element);
 				}
-				cout << "\n\tFound operator... with priority: " << ops.getPriority(s[i]);
+				log.debug("\t\tFound operator... with priority: %", ops.getPriority(s[i]));
+//				cout << "\tFound operator... with priority: " << ops.getPriority(s[i]);
 				element.type = OperatorType;
 				element.content = s[i];
 				elemList.push_back(element);
@@ -89,7 +92,8 @@ long Parser::parse(string s, int recursionLevel, int* stringPos) {
 			else if (s[i] == ' ') {
 				if (readingNumber) {
 					readingNumber = false;
-					cout << "\nClosing number read after whitespace with: " << elem; 
+					log.debug("Closing number read after whitespace with: %", elem); 
+//					cout << "\nClosing number read after whitespace with: " << elem; 
 					element.type = OperandType;
 					element.content = elem;
 					elemList.push_back(element);
@@ -99,30 +103,33 @@ long Parser::parse(string s, int recursionLevel, int* stringPos) {
 				cout << "\nSyntax error!";
 				exit(1);
 			}
-
-			cout << endl;
+//			cout << endl;
 		}
 		if (readingNumber) {
 			if (recursionLevel == 0) {
 				elem += s[i];
 			}
-			cout << "\nClosing number at end of file: " << elem;
+			log.debug("Closing number at end of file: %", elem);
+//			cout << "\nClosing number at end of file: " << elem;
 			element.type = OperandType;
 			element.content = elem;
 			elemList.push_back(element);
 		}
-		cout << "\nNumber of elements in list: " << elemList.size() << endl;
+		log.debug("Number of elements in list: %", (int) elemList.size());
+//		cout << "\nNumber of elements in list: " << elemList.size() << endl;
 		printList(elemList);
 		result = evaluateParsedStatement(elemList); 
-		cout << "\nResult is: " << result << endl;
+		cout << "Result is: " << result << endl;
 
 		return result;
 	}
 
 void Parser::printList(list<Element> elemList) {
-		cout << "Printing list" << endl;
+		log.debug("Printing list");
+//		cout << "Printing list" << endl;
 		for (auto const& e : elemList) {
-			cout << "Element content: " << e.content << ", type: " << (e.type == OperandType ? "Operand" : "Operator") << endl;
+			log.debug("Element content: " + e.content + ", type: " + (e.type == OperandType ? "Operand" : "Operator"));
+//			cout << "Element content: " << e.content << ", type: " << (e.type == OperandType ? "Operand" : "Operator") << endl;
 		}
 	}
 
@@ -150,7 +157,8 @@ long Parser::evaluateParsedStatement(list<Element> elemList) {
 					cout << "Syntax error!" << endl;
 					exit(1);
 				}
-				cout << "got in size() > 3 part, size() is: " << elemList.size() << endl;
+				log.debug("got in size() > 3 part, size() is: %", (int) elemList.size());
+//				cout << "got in size() > 3 part, size() is: " << elemList.size() << endl;
 				// Skipping checks for operand/operator
 				iterator = elemList.begin();
 				elem1 = *iterator++;
@@ -160,7 +168,8 @@ long Parser::evaluateParsedStatement(list<Element> elemList) {
 				elem5 = *iterator++;
 				if (ops.getPriority(elem2.content[0]) <= ops.getPriority(elem4.content[0])) {
 					subResult = evaluateElementaryOperation(elem1.content, elem2.content, elem3.content);
-					cout << "Subresult: " << subResult << endl;
+					log.debug("Subresult: %", (int) subResult);
+//					cout << "Subresult: " << subResult << endl;
 					element.content = to_string(subResult);
 					element.type = OperandType;
 					elemList.erase(elemList.begin());
@@ -171,29 +180,35 @@ long Parser::evaluateParsedStatement(list<Element> elemList) {
 				}
 				else {
 					subResult = evaluateElementaryOperation(elem3.content, elem4.content, elem5.content); 
-					cout << "Subresult: " << subResult << endl;
+					log.debug("Subresult: %", (int) subResult);
+//					cout << "Subresult: " << subResult << endl;
 					iterator = elemList.begin();
 					iterator++;
 					iterator++;
 					element.content = to_string(subResult);
 					element.type = OperandType;
 					elemList.insert(iterator, 1, element);
-					cout << "After insert, size is: " << elemList.size() << endl;
+					log.debug("After insert, size is: %", (int) elemList.size());
+//					cout << "After insert, size is: " << elemList.size() << endl;
 					iterator = elemList.begin();
 					iterator++;
 					iterator++;
 					iterator++;
 					iterator = elemList.erase(iterator);
-					cout << "After erase, size is: " << elemList.size() << endl;
+					log.debug("After erase, size is: %", (int) elemList.size());
+//					cout << "After erase, size is: " << elemList.size() << endl;
 					printList(elemList);
 					iterator = elemList.erase(iterator);
-					cout << "After erase, size is: " << elemList.size() << endl;
+					log.debug("After erase, size is: %", (int) elemList.size());
+//					cout << "After erase, size is: " << elemList.size() << endl;
 					printList(elemList);
 					iterator = elemList.erase(iterator);
-					cout << "After erase, size is: " << elemList.size() << endl;
+					log.debug("After erase, size is: %", (int) elemList.size());
+//					cout << "After erase, size is: " << elemList.size() << endl;
 					printList(elemList);
 				}
-				cout << "After subresult evalutation, size is: " << elemList.size() << endl;
+				log.debug("After subresult evalutation, size is: %", (int) elemList.size());
+//				cout << "After subresult evalutation, size is: " << elemList.size() << endl;
 			}
 		}
 		return result;
@@ -219,7 +234,8 @@ long Parser::evaluateElementaryOperation(string term1, string Operator, string t
 		else if (Operator == "-") {
 			result = term1Int-term2Int;
 		}
-		cout << "term1: " << term1Int << ", term2: " << term2Int << endl;
+		log.debug("term1: %, term2: %", term1Int, term2Int);
+//		cout << "term1: " << term1Int << ", term2: " << term2Int << endl;
 		return result;
 	}
 //};

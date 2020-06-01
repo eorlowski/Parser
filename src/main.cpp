@@ -9,17 +9,21 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
+	logger log;
 	Parser parser;
 	string s;
 	if (argc > 1) {
-		for (int i = 1; i < argc; i++) {
+		int expressionStart = 1;
+		if ((string) argv[1] == "-d") {
+			log.level = DEBUG;
+			expressionStart = 2;
+		}
+		for (int i = expressionStart; i < argc; i++) {
 			s += argv[i];
 		}
-		cout << "Going to calculate: " << s << endl;
-//		s = argv[1];
+		log.debug("Going to calculate: " + s);
 	}
 	else {
-//		s = " 2 *5+3*4+9*8*7";
 		getline(cin, s);
 	}
 
