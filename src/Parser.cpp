@@ -139,6 +139,14 @@ long Parser::evaluateParsedStatement(list<Element> elemList) {
 		long int result, subResult;
 		Element element, elem1, elem2, elem3, elem4, elem5;
 		list<Element>::iterator iterator;
+		if (elemList.size() == 1) {
+			iterator = elemList.begin();
+			elem1    = *iterator++;
+			stringstream ss;
+			ss << elem1.content;
+			ss >> result;
+		}
+		else { // TODO: correct indentation
 		while (elemList.size() > 1) {
 			if (elemList.size() == 3) {
 				iterator = elemList.begin();
@@ -211,7 +219,8 @@ long Parser::evaluateParsedStatement(list<Element> elemList) {
 				log.debug("After subresult evalutation, size is: %", (int) elemList.size());
 //				cout << "After subresult evalutation, size is: " << elemList.size() << endl;
 			}
-		}
+		} // while loop
+		} // else
 		return result;
 	}
 
