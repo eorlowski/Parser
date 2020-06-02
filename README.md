@@ -31,5 +31,5 @@ You can use catch options like '-s'.
 
 Known bugs
 ----------
-Expression of (3+4) is not handled correctly.
+Fixed: Expression of (3+4) is not handled correctly.
 
