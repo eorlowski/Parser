@@ -197,22 +197,22 @@ long Parser::evaluateParsedStatement(list<Element> elemList) {
 					element.content = to_string(subResult);
 					element.type = OperandType;
 					elemList.insert(iterator, 1, element);
-					log.debug("After insert, size is: %", (int) elemList.size());
+//					log.debug("After insert, size is: %", (int) elemList.size());
 //					cout << "After insert, size is: " << elemList.size() << endl;
 					iterator = elemList.begin();
 					iterator++;
 					iterator++;
 					iterator++;
 					iterator = elemList.erase(iterator);
-					log.debug("After erase, size is: %", (int) elemList.size());
+//					log.debug("After erase, size is: %", (int) elemList.size());
 //					cout << "After erase, size is: " << elemList.size() << endl;
-					printList(elemList);
+//					printList(elemList);
 					iterator = elemList.erase(iterator);
-					log.debug("After erase, size is: %", (int) elemList.size());
+//					log.debug("After erase, size is: %", (int) elemList.size());
 //					cout << "After erase, size is: " << elemList.size() << endl;
-					printList(elemList);
+//					printList(elemList);
 					iterator = elemList.erase(iterator);
-					log.debug("After erase, size is: %", (int) elemList.size());
+					log.debug("After substitution, size is: %", (int) elemList.size());
 //					cout << "After erase, size is: " << elemList.size() << endl;
 					printList(elemList);
 				}
