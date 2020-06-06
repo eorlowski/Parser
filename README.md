@@ -35,3 +35,4 @@ Known bugs
 ----------
 Fixed: Expression of (3+4) is not handled correctly.
 
+In interactive mode, the arrow keys are not handled well.
