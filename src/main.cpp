@@ -12,6 +12,8 @@ int main(int argc, char** argv) {
 	logger log;
 	Parser parser;
 	string s;
+	long int result;
+
 	if (argc > 1) {
 		int expressionStart = 1;
 		if ((string) argv[1] == "-d") {
@@ -22,15 +24,22 @@ int main(int argc, char** argv) {
 			s += argv[i];
 		}
 		log.debug("Going to calculate: " + s);
+		// let 0 be the default for recursionLevel
+		result = parser.parse(s, 0, NULL);
+
+		cout << result << endl;
 	}
 	else {
-		getline(cin, s);
+		// interactive mode
+		cout << ">";
+		std::getline(std::cin, s);
+		while (!std::cin.eof() && s != "exit") {
+			result = parser.parse(s, 0, NULL);
+			cout << result << endl;
+			cout << ">";
+			std::getline(std::cin, s);
+		}
 	}
-
-	// let 0 be the default for recursionLevel
-	long int result = parser.parse(s, 0, NULL);
-
-	cout << "Result of parser is: " << result << endl;
 
 	return 0;
 }

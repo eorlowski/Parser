@@ -11,4 +11,5 @@ TEST_CASE("Testing parser") {
 	REQUIRE( parser.parse("(2)", 0, NULL) == 2);
 	REQUIRE( parser.parse("((2))", 0, NULL) == 2);
 	REQUIRE( parser.parse("2*(3+3*(2+1))", 0, NULL) == 24);
+	REQUIRE( parser.parse("3*(4+2) ", 0, NULL) == 18);
 }
