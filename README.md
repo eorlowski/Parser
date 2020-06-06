@@ -17,6 +17,8 @@ Read from stdin: try echo "2 + 4 * (3 + 2)" | ./parser.exe
 
 Added debug option: -d (if first argument, displays verbose debug information).
 
+06=06=2020 Added interactive mode
+
 Added unit testing and makefiles
 --------------------------------
 
