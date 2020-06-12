@@ -4,6 +4,10 @@
 #include <sstream>
 #include <map>
 #include "Parser.h"
+#ifdef USE_READLINE
+	#include <readline/readline.h>
+	#include <readline/history.h>
+#endif
 
 using namespace std;
 
@@ -31,7 +35,18 @@ int main(int argc, char** argv) {
 	}
 	else {
 		// interactive mode
-		cout << ">";
+#ifdef USE_READLINE
+		const char *line;
+		while ((line = readline("> ")) != nullptr && ((string) line != "exit")) {
+			if (*line) {
+				add_history(line);
+				result = parser.parse(line, 0, NULL);
+				cout << result << endl;
+			}
+			free((void *) line);
+		}
+#else
+		cout << "> ";
 		std::getline(std::cin, s);
 		while (!std::cin.eof() && s != "exit") {
 			result = parser.parse(s, 0, NULL);
@@ -39,6 +54,7 @@ int main(int argc, char** argv) {
 			cout << ">";
 			std::getline(std::cin, s);
 		}
+#endif
 	}
 
 	return 0;

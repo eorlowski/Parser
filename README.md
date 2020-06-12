@@ -35,4 +35,5 @@ Known bugs
 ----------
 Fixed: Expression of (3+4) is not handled correctly.
 
-In interactive mode, the arrow keys are not handled well.
+Fixed: In interactive mode, the arrow keys are not handled well.
+Note: if compiled with the readline option, arrows will invoke history. To exclude readline library, set USE_READLINE variable in src/Makefile to false (or some other value than true).

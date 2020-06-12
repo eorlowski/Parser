@@ -4,11 +4,18 @@ obj=$(src:.cpp=.o)
 
 EXE=parser.exe
 
+USE_READLINE=true
+
+ifeq ($(USE_READLINE), true)
+	LDLIBS=-lreadline
+	CXXFLAGS+=-DUSE_READLINE
+endif
+
 $(EXE): $(obj)
-	$(CXX) -o $@ $^
+	$(CXX) -o $@ $^ $(LDLIBS)
 
 %.o: %.cpp
-	$(CXX) -c $^ 
+	$(CXX) -c $^ $(CXXFLAGS)
 
 .PHONY: clean
 
