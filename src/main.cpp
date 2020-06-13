@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
 		while (!std::cin.eof() && s != "exit") {
 			result = parser.parse(s, 0, NULL);
 			cout << result << endl;
-			cout << ">";
+			cout << "> ";
 			std::getline(std::cin, s);
 		}
 #endif

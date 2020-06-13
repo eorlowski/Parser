@@ -1,6 +1,10 @@
 # Ed's parser
 
-C++ Compile with for example: g++ -o parser.exe Parser.cpp
+C++ 
+
+Compile with make, when under cygwin, possibly under POSIX too.
+Whe compiling with mingw (mingw32-make), set USER_READLINE to false, because otherwise it will not comiple.
+Unit tests (make test) does not work with mingw-make.
 
 Description
 -----------
