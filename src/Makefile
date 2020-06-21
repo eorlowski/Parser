@@ -6,6 +6,8 @@ EXE=parser.exe
 
 USE_READLINE=true
 
+CXXFLAGS+=-Wall -g
+
 ifeq ($(USE_READLINE), true)
 	LDLIBS=-lreadline
 	CXXFLAGS+=-DUSE_READLINE

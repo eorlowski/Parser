@@ -1,0 +1,48 @@
+$ ./parser.exe 4 + 7 * 8 + 3
+
+Syntax error!
+
+while:
+
+$ echo "4 + 7 * 8 + 3" | ./parser.exe
+Result of parser is: 63
+
+
+$ ./parser.exe -d 4 + 7 * 8 + 3
+DEBUG: Going to calculate: 4+7MakefileParser.cppParser.hParser.ologger.cpplogger.hlogger.omain.cppmain.oparser.exe8+3
+DEBUG: Length of string: 90, recursion level: 0
+DEBUG: Found character: 4
+DEBUG:          Found digit...
+DEBUG: Found character: +
+DEBUG: Closing number read with: 4
+DEBUG:          Found operator... with priority: 2
+DEBUG: Found character: 7
+DEBUG:          Found digit...
+DEBUG: Found character: M
+
+Syntax error!
+
+WTF is going on?
+* needs to be escaped, like this:
+
+$ ./parser.exe 4 + 7 \* 8 + 3
+Result of parser is: 63
+
+
+
+Nieuwe bug
+============
+$ echo "(((1)))" | ./parser.exe
+Result of parser is: 1
+
+$ echo "(((1)))" | ./parser.exe -d
+DEBUG: Going to calculate:
+DEBUG: Length of string: 0, recursion level: 0
+DEBUG: Number of elements in list: 0
+DEBUG: Printing list
+DEBUG: Result is: -2145737159
+Result of parser is: 2149230137
+
+$ ./parser.exe -d \(\(\(1\)\)\)
+...
+Result of parser is: 1
