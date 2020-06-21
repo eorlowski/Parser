@@ -17,6 +17,7 @@ int main(int argc, char** argv) {
 	Parser parser;
 	string s;
 	long int result;
+	string errorMessage;
 
 	if (argc > 1) {
 		int expressionStart = 1;
@@ -29,9 +30,16 @@ int main(int argc, char** argv) {
 		}
 		log.debug("Going to calculate: " + s);
 		// let 0 be the default for recursionLevel
-		result = parser.parse(s, 0, NULL);
+		result = parser.parse(s, errorMessage);
 
-		cout << result << endl;
+		if (errorMessage != "") {
+			cout << errorMessage << endl;
+			cout << "At position: " << result << endl;
+			errorMessage = "";
+		}
+		else {
+			cout << result << endl;
+		}
 	}
 	else {
 		// interactive mode
@@ -40,8 +48,15 @@ int main(int argc, char** argv) {
 		while ((line = readline("> ")) != nullptr && ((string) line != "exit")) {
 			if (*line) {
 				add_history(line);
-				result = parser.parse(line);
-				cout << result << endl;
+				result = parser.parse(line, errorMessage);
+				if (errorMessage != "") {
+					cout << errorMessage << endl;
+					cout << "At position: " << result << endl;
+					errorMessage = "";
+				}
+				else {
+					cout << result << endl;
+				}
 			}
 			free((void *) line);
 		}
@@ -49,9 +64,16 @@ int main(int argc, char** argv) {
 		cout << "> ";
 		std::getline(std::cin, s);
 		while (!std::cin.eof() && s != "exit") {
-			result = parser.parse(s);
-			cout << result << endl;
-			cout << "> ";
+			result = parser.parse(s, errorMessage);
+			if (errorMessage != "") {
+				cout << errorMessage << endl;
+				cout << "At position: " << result << endl;
+				errorMessage = "";
+			}
+			else {
+				cout << result << endl;
+				cout << "> ";
+			}
 			std::getline(std::cin, s);
 		}
 #endif
