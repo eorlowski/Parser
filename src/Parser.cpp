@@ -34,7 +34,7 @@ int Operators::getPriority(char symbol) {
 //class Parser {
 //	Operators ops;
 //	public:
-long Parser::parse(string s, int recursionLevel, int* stringPos) {
+long Parser::parse(string s, int recursionLevel = 0, int* stringPos = NULL) {
 		list<Element> elemList;
 		log.debug ("Length of string: " + to_string(s.length()) + ", recursion level: " + to_string(recursionLevel) );
 		bool readingNumber = false;

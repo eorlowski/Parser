@@ -26,5 +26,5 @@ class Parser {
 		void printList(std::list<Element>);
 		long evaluateElementaryOperation(std::string, std::string, std::string); 
 	public:
-		long parse(std::string, int, int*);
+		long parse(std::string, int = 0, int* = NULL);
 };

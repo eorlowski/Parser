@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 		while ((line = readline("> ")) != nullptr && ((string) line != "exit")) {
 			if (*line) {
 				add_history(line);
-				result = parser.parse(line, 0, NULL);
+				result = parser.parse(line);
 				cout << result << endl;
 			}
 			free((void *) line);
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 		cout << "> ";
 		std::getline(std::cin, s);
 		while (!std::cin.eof() && s != "exit") {
-			result = parser.parse(s, 0, NULL);
+			result = parser.parse(s);
 			cout << result << endl;
 			cout << "> ";
 			std::getline(std::cin, s);
